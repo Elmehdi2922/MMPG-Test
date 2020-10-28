@@ -1,0 +1,23 @@
+runtime: php73 # Replace with php56 to use PHP 5.6 (beta)
+
+runtime_config:
+  document_root: .
+
+handlers:
+# Serve images as static resources.
+- url: /(.+\.(gif|png|jpg|js|php|sql))$
+  static_files: \1
+  upload: .+\.(gif|png|jpg|js|php|sql)$
+
+
+- url: /.*
+  script: auto
+
+entrypoint:
+  serve index.php
+
+env_variables:
+  CLOUDSQL_USER: root
+  CLOUDSQL_DB: testMmpg
+  CLOUDSQL_PASSWORD: 123
+  CLOUDSQL_DSN: /cloudsql/mmpgproject:europe-west1:testdatabase
